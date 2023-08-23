@@ -2,7 +2,7 @@ package com.vlados.a2048game
 
 import androidx.lifecycle.ViewModel
 
-open class Logic : ViewModel() {
+class MainActivityViewModel : ViewModel() {
     var grid = arrayOf(
         arrayOf(0, 0, 0, 0),
         arrayOf(0, 0, 0, 0),
@@ -10,17 +10,10 @@ open class Logic : ViewModel() {
         arrayOf(0, 0, 0, 0)
     )
 
-//    fun restartGame() {
-//        grid = arrayOf(
-//            arrayOf(0, 0, 0, 0),
-//            arrayOf(0, 0, 0, 0),
-//            arrayOf(0, 0, 0, 0),
-//            arrayOf(0, 0, 0, 0)
-//        )
-//        spawnNumber()
-//        spawnNumber()
-//        updateScore()
-//    }
+    init {
+        spawnNumber()
+        spawnNumber()
+    }
 
     fun processSumm() {
         var gridChanged = false
