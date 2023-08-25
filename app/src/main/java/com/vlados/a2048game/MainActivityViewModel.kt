@@ -3,16 +3,19 @@ package com.vlados.a2048game
 import androidx.lifecycle.ViewModel
 
 class MainActivityViewModel : ViewModel() {
-    var grid = arrayOf(
+    private var grid = arrayOf(
         arrayOf(0, 0, 0, 0),
         arrayOf(0, 0, 0, 0),
         arrayOf(0, 0, 0, 0),
         arrayOf(0, 0, 0, 0)
     )
 
+    fun getCell(rowIndex: Int, cellIndex:Int): Int{
+        return grid[rowIndex][cellIndex]
+    }
+
     init {
-        spawnNumber()
-        spawnNumber()
+        restartGame()
     }
 
     fun processSumm() {
@@ -53,6 +56,7 @@ class MainActivityViewModel : ViewModel() {
             spawnNumber()
         }
     }
+    //TODO Исправить функцию processSumm избавиться от вложенных циклов for.
 
     fun summUp() {
         rotateArrayRight()
@@ -96,7 +100,6 @@ class MainActivityViewModel : ViewModel() {
         grid = rotatedArray
     }
 
-
     fun spawnNumber() {
         val mapOfCoordinates = mutableMapOf<Int, Int>()
         for (i in grid.indices) {
@@ -129,5 +132,16 @@ class MainActivityViewModel : ViewModel() {
             2048 -> 0xFF372E2B.toInt()
             else -> 0xFFB5B2B1.toInt()
         }
+    }
+
+    fun restartGame() {
+        grid = arrayOf(
+            arrayOf(0, 0, 0, 0),
+            arrayOf(0, 0, 0, 0),
+            arrayOf(0, 0, 0, 0),
+            arrayOf(0, 0, 0, 0)
+        )
+        spawnNumber()
+        spawnNumber()
     }
 }

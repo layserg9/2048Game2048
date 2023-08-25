@@ -2,6 +2,7 @@ package com.vlados.a2048game
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.activity.viewModels
@@ -35,16 +36,16 @@ class MainActivity : AppCompatActivity() {
             updateScore()
         }
         bindingClass.buttonRestart.setOnClickListener {
-            restartGame()
+            mainActivityViewModel.restartGame()
+            updateScore()
         }
-
     }
 
     fun updateScore() {
         var finalScore = 0
-        for (i in mainActivityViewModel.grid.indices) {
-            for (j in mainActivityViewModel.grid[i].indices) {
-                val cell = mainActivityViewModel.grid[i][j]
+        for (i in 0..3) {
+            for (j in 0..3) {
+                val cell = mainActivityViewModel.getCell(i,j)
                 finalScore += cell
                 val rowView = bindingClass.mainContainer.children.toList()[i] as? TableRow
                 val cellView = rowView?.children?.toList()?.get(j) as? TextView
@@ -53,16 +54,5 @@ class MainActivity : AppCompatActivity() {
             }
         }
         bindingClass.score.text = finalScore.toString()
-    }
-    fun restartGame() {
-        mainActivityViewModel.grid = arrayOf(
-            arrayOf(0, 0, 0, 0),
-            arrayOf(0, 0, 0, 0),
-            arrayOf(0, 0, 0, 0),
-            arrayOf(0, 0, 0, 0)
-        )
-        mainActivityViewModel.spawnNumber()
-        mainActivityViewModel.spawnNumber()
-        updateScore()
     }
 }
